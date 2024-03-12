@@ -146,18 +146,81 @@ minishell
   
   
 * sigaction
+  ```c
+  #include <signal.h>
+  
+  struct sigaction
+  {
+  	void (*sa_handler)(int); //시그널을 처리하기 위한 핸들러
+  													 //SIG_DFS, SIG_IGN 또는 핸들러 함수
+  	void (*sa_sigaction)(int, siginfo_t *, void *); //밑의 sa_flags가 SA_SIGINFO일 때
+  																									//sa_handler 대신에 동작하는 핸들러
+  	sigset_t sa_mask; //시그널을 처리하는 동안 블록화할 시그널 집합의 마스크
+  	int      sa_flags; //아래 설명 참고
+  	void (*sa_restorer)(void); //사용해서는 안 된다.
+  }
+  
+  int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
+  ```
+  
+  함수 설명
+  >  sig : 시그널 번호
+  >  act : 설정할 행동. 즉, 새롭게 지정할 처리 행동
+  >  oldact : 이전 행동, 이 함수를 호출하기 전에 지정된 행동 정보가 입력된다. 포인터로 보냈기 때문에 값이 지정된다.
+  >  - signal()에서는 처리할 행동 정보롤 시그널이 발생하면 호출이될 함수 포인터를 넘겨 주었는데,
+  >    sigaction()에서는 struct sigaction 구조체 값을 사용해서 좀 더 다양한 지정이 가능하다(예 : 받지 않을 시그널)
+  반환값
+  >  성공 → 0, 실패 → -1  
   
 * sigemptyset
-  
+  ```C
+  #include <signal.h>
+  int sigemptyset(sigset_t *set);
+  ```
+  함수 설명  
+  >  인자로 온 set을 빈 시그널 집합으로 만든다.
+    
+  반환값  
+  >  성공 → 0, 실패 → -1  
 * sigaddset
+  ```c
+  #include <signal.h>
+  int sigaddset(sigset_t *set, int signum);
+  ```
+  함수 설명  
+  >  시그널 집합 set에 signum을 추가한다.    
+      
+  반환값  
+  >  성공 → 0, 실패 → -1  
   
 * kill
   
-* exit
-  
 * getcwd
-  
+  ```c
+  #include <unistd.h>
+  char *getcwd(char *buf, size_t size);
+  ```
+    
+  함수 설명 get working directory pathname  
+  >  현재 경로를 절대 경로로 buf에다가 넣어준다.  
+  >  size는 buf에 넣을 수 있는 문자 수.  
+  >  buf에 NULL 포인터가 들어가면 현재 절대경로를 malloc한 후 복사하고 리턴을 해준다.  
+    
+  반환값
+  >  성공 → buf, buf자리에 NULL일 때 → 동적할당하고 복사한 걸 리턴  
+  >  실패 → NULL 포인터  
+
 * chdir
+  ```c
+  #include <unistd.h>
+  int chdir(const char *path);
+  ```
+  
+  함수 설명 change current working directory  
+  >  cd할 때 사용? path로 현재 디렉토리를 바꾼다.(path로 경로 변경)  
+    
+  반환값  
+  >  성공 → 0, 실패 → -1 그리고 errno 설정
   
 * stat, lstat, fstat
   ```c
@@ -191,30 +254,93 @@ minishell
   
 * pipe
   
-* opendir
-  
-* readdir
-  
-* closedir
+* opendir, readdir, closedir
+  ```c
+  #include <dirent.h>
+  DIR *opendir(const char *filename);
+  struct dirent *readdir(DIR *dirp);
+  int closedir(DIR *dirp);
+  ```
+  함수 설명  
+  >  directory operations fopen에서 파일 포인터(FILE *)를 받아서 fread에 사용하고  
+  >  fclose로 닫는 것처럼 opendir로 DIR *를 받아서 readdir로 읽고 closedir로 닫는다.  
+  >  opendir filename : 열 디렉토리의 이름 연 후에 DIR *를 반환한다.   
+  >  readdir dirp : 정보를 가져올 디렉토리의 디렉토리 포인터(DIR *) 디렉토리에 있는 내용을 읽고 다음 읽을 디렉토리로 DIR *를 옮긴다.  
+  >  그리고 끝까지 다 읽었을 때는 NULL를 리턴한다.  
+  >  closedir dirp : 닫을 디렉토리 스트림  
+    
+  반환값  
+  >  opendir 성공 → 연 디렉토리 포인터, 실패 → NULL  
+  >  readdir 성공 → 디렉토리의 정보, 끝까지 다 읽었을 때 → NULL, 실패 → NULL, 그리고 errno 설정 끝까지 다 읽었을 때와 실패일 때의 반환값이 같기 때문에 실패인지를 판별할 때는 errno변수의 변경 유무로 확인한다.  
+  >  closedir 성공 → 0, 실패 → -1  
   
 * strerror
   
 * perror
   
-* isatty
-  
-* ttyname
+* isatty, ttyname
+  ```c
+  #include <unistd.h>
+  int isatty(int fd);
+  char *ttyname(int fd);
+  ```
+    
+  함수 설명 get name of associated terminal (tty) from file descriptor  
+  >  isatty 매개변수로 온 file descriptor가 터미널 장치와 관련됐는지 알려 준다.  
+  >  ttyname fd가 속해 있는 터미널 장치의 이름을 가져온다.  
+  >  ttyname이 반환한 문자열은 바뀔 수도 있다. 이유는 static 자료형을 가리킬 수도 있기 때문.  
+    
+  반환값    
+  >  isatty fd가 터미널 장치와 관련됐다. → 1, 아니다 → 0  
+  >  ttyname 성공 → 터미널 장치의 경로, 실패 → NULL 포인터
   
 * ttyslot
-  
+  ```c
+  #include <unistd.h>
+  int ttyslot(void);
+  ```
+    
+  함수 설명  
+  >  find the slot of the current user’s terminal in some file ttyslot를 부른 프로그램이 참조하고 있는 터미널의 인덱스를 반환한다.  
+     
+  반환값  
+  >  성공 → 터미널의 인덱스, 실패 → -1, 0  
 * ioctl
   
 * getenv
-  
-* tcsetattr
-  
-* tcgetattr
-  
+  ```c
+  #include <stdlib.h>
+  char *getenv(const char *name);
+  ```
+
+  함수 설명 environment variable function  
+  >  환경변수 리스트에서 name인 변수를 찾는다. 환경변수 리스트는 name=value의 형태. =을 넣어도 찾는다?
+    
+  반환값  
+  > 성공 → 찾은 value, 실패 → NULL 포인터  
+    
+* tcsetattr, tcgetattr
+  ```c
+  #include <termios.h>
+  int tcsetattr(int fildes, int optional_actions,
+  							const struct termios *termios_p);
+  int tcgetattr(int fildes, struct termios *termios_p);
+  ```
+  함수 설명 manipulating the termios structure
+  >  tcsetattr fildes : 터미널의 file descriptor(터미널의 fd가 아닌 경우. 즉, 일반 파일의 경우는 오류다, STDIN 등은 가능하다.)  
+  >  termios_p : fildes가 가리키는 터미널의 속성을 저장할 변수의 주솟값  
+  >  tcgetattr fildes : 터미널 file descriptor optional_actions : 동작 선택  
+    
+  >  >TCSNOW : 속성(termios_p)를 바로 변경한다.  
+  >  >TCSADRAIN : 현재 출력이 완료됐을 때 값을 변경한다.(fd로 써진 출력값이 터미널로 다 보내진 후에 변경된다.)  
+  >  >This value of optional_actions should be used when changing parameters that affect output  
+  >  >TSCAFLUSH : 현재 출력이 완료됐을 때 값을 변경한다. 하지만 현재 읽을 수 있으며, read 호출에서 아직 반환되지 않은 입력값은 버린다.  
+    
+  >  termios_p : 터미널 속성을 설정할 포인터  
+
+  반환값  
+  >  둘 다, 성공 → 0, 실패 → -1 그리고 errno 설정  
+    
 * tgetent
   
 * tgetflag
