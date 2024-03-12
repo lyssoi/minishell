@@ -45,8 +45,8 @@ minishell
   함수 설명  
   >  rl_line_buffer라는 변수를 사용하는데 rl_line_buffer는 사용자가 입력한 문자열을 별도로 유지한다.  
     rl_line_buffer에 입력받은 내용을 text라는 문자열로 대치한다.
-  >     
-    clear_undo는 내부적으로 유지 중인 undo_list를 초기화할 지의 여부를 결정 짓는 값이다.  
+    
+  > clear_undo는 내부적으로 유지 중인 undo_list를 초기화할 지의 여부를 결정 짓는 값이다.  
     clear_undo == 0 → 초기화하지 않고, clear_undo == 1 → 초기화한다.
     
   반환값  
