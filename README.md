@@ -44,7 +44,8 @@ minishell
   ```
   함수 설명  
   >  rl_line_buffer라는 변수를 사용하는데 rl_line_buffer는 사용자가 입력한 문자열을 별도로 유지한다.  
-    rl_line_buffer에 입력받은 내용을 text라는 문자열로 대치한다.  
+    rl_line_buffer에 입력받은 내용을 text라는 문자열로 대치한다.
+  >     
     clear_undo는 내부적으로 유지 중인 undo_list를 초기화할 지의 여부를 결정 짓는 값이다.  
     clear_undo == 0 → 초기화하지 않고, clear_undo == 1 → 초기화한다.
     
@@ -71,7 +72,8 @@ minishell
   ```
   함수 설명
   >  readline 함수의 기본 동작 중에 사용자가 입력했던 문자열을 다시 얻게 해주는 함수이다.  
-    add_history의 인자인 line으로 기재한 문자열은 위와 아래 방향키를 통해서 readline 함수 실행 도중에 다시 불러올 수 있다.  
+    add_history의 인자인 line으로 기재한 문자열은 위와 아래 방향키를 통해서 readline 함수 실행 도중에 다시 불러올 수 있다.
+    
   반환값
   >  Unix 계열에서 내장된 readline 디렉토리를 이용하는 경우에는 int 타입으로 반환값을 만드는데, 함수 수행에 문제가 없다면 → 0, 그렇지 않다면 → -1을 반환한다.  
     만약에 Unixt 계열에 내장된 readline 디렉토리가 아니라 GNU Library의 readline을 이용한다면, 이전과 달리 void 타입의 반환값을 만드는 것을 볼 수 있다.  
