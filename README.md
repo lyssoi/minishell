@@ -10,8 +10,8 @@ minishell
   ```c
   char *readline(const char *);
   ```
-  >함수 설명
-    입력받은 문자열을 저장하고 그 메모리주소를 반환한다.
+  함수 설명
+  >  입력받은 문자열을 저장하고 그 메모리주소를 반환한다.
 
 * rl_clear_history
   
@@ -19,10 +19,10 @@ minishell
   #include <readline/readline.h>
   void rl_clear_history(void);
   ```
-  >함수 설명
-    현재 history를 지운다.
-  >반환값
-    없다.  
+  함수 설명
+  >  현재 history를 지운다.
+  반환값
+  >  없다.  
   
 * rl_on_new_line
 
@@ -30,12 +30,12 @@ minishell
   #include <readline/readline.h>
   int rl_on_new_line(void);
   ```
-  >함수 설명  
-    readline 디렉토리 내에서 함수들에게 커서가 개행 문자를 통해 다음 줄로 이동했음을 알려줄 때  
+  함수 설명  
+  >  readline 디렉토리 내에서 함수들에게 커서가 개행 문자를 통해 다음 줄로 이동했음을 알려줄 때  
     이용되는 함수 알림 용도의 함수이므로 직접적으로 rl_on_new_line 함수가 개행 문자를 수행해주지는 않는다.  
 
-  >반환값  
-    성공 → 0 실패 → -1  
+  반환값  
+  >  성공 → 0 실패 → -1  
   
 * rl_replace_line
   ```c
