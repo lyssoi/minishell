@@ -103,10 +103,13 @@ minishell
   ```
   함수 설명  
   >  wait for process termination 자식 프로세스가 종료되는 것을 기다리며, 종료된 프로세스의 상태와 자원 사용량을 알려주는 함수  
-    wait3 statloc : 자식 프로세스의 exit code를 가지고 있다.  
-    options : 자식 프로세스를 어떻게 기다릴 건지 옵션(waitpid랑 똑같다)  
-    rusage : 자식 프로세스의 리소스 사용량에 대한 정보가 담긴다.  
-  >>wait4 : wait3이랑 똑같다. pid : waitpid의 인자와 똑같다.  
+  >  wait3 :  
+  >>  statloc : 자식 프로세스의 exit code를 가지고 있다.  
+      options : 자식 프로세스를 어떻게 기다릴 건지 옵션(waitpid랑 똑같다)  
+      rusage : 자식 프로세스의 리소스 사용량에 대한 정보가 담긴다.  
+  >  wait4 :  
+  >> wait3이랑 똑같다.
+  >> pid : waitpid의 인자와 똑같다.  
     
   반환값  
    > 성공 → 죽은 자식 프로세스의 pid, 실패 → -1  
