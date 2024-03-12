@@ -101,15 +101,15 @@ minishell
   pid_t wait3(int *stat_loc, int options, struct rusage *rusage);
   pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage);
   ```
-  함수 설명
-  >  wait for process termination 자식 프로세스가 종료되는 것을 기다리며, 종료된 프로세스의 상태와 자원 사용량을 알려주는 함수
-    wait3 statloc : 자식 프로세스의 exit code를 가지고 있다.
-    options : 자식 프로세스를 어떻게 기다릴 건지 옵션(waitpid랑 똑같다)
-    rusage : 자식 프로세스의 리소스 사용량에 대한 정보가 담긴다.
-  >>wait4 : wait3이랑 똑같다. pid : waitpid의 인자와 똑같다.
+  함수 설명  
+  >  wait for process termination 자식 프로세스가 종료되는 것을 기다리며, 종료된 프로세스의 상태와 자원 사용량을 알려주는 함수  
+    wait3 statloc : 자식 프로세스의 exit code를 가지고 있다.  
+    options : 자식 프로세스를 어떻게 기다릴 건지 옵션(waitpid랑 똑같다)  
+    rusage : 자식 프로세스의 리소스 사용량에 대한 정보가 담긴다.  
+  >>wait4 : wait3이랑 똑같다. pid : waitpid의 인자와 똑같다.  
     
-  반환값
-   > 성공 → 죽은 자식 프로세스의 pid, 실패 → -1
+  반환값  
+   > 성공 → 죽은 자식 프로세스의 pid, 실패 → -1  
   
 * signal
   
@@ -137,17 +137,17 @@ minishell
   //struct status : 파일 정보를 저장하는 구조체
   ```
     
-  함수 설명  get file status
+  함수 설명  get file status  
   >fstat fildes : 연 파일의 파일 디스크립터  
-  buf : fildes가 가리키는 파일의 상태 및 정보를 저장할 구조체
+  buf : fildes가 가리키는 파일의 상태 및 정보를 저장할 구조체  
   >    
-  >lstat, stat path : stat을 얻고자 하는 파일의 경로  
+  >lstat, stat path : stat을 얻고자 하는 파일의 경로   
   buf : path에 있는 파일의 상태 및 정보를 저장할 구조체  
-  >>차이점 : stat은 지정한 파일이 심볼릭 링크면 링크를 따라가서 원본 파일의 정보를 전달하지만,  
+  >>차이점 : stat은 지정한 파일이 심볼릭 링크면 링크를 따라가서 원본 파일의 정보를 전달하지만,    
            lstat은 지정한 파일이 심볼릭 링크면 링크 파일 자체의 정보를 전달.  
   
   반환값  
-  >stat, lstat, fstat 성공 → 0, 실패 → -1 그리고 errno가 설정된다.
+  >stat, lstat, fstat 성공 → 0, 실패 → -1 그리고 errno가 설정된다.  
 
 * unlink
   
