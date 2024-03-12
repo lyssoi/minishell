@@ -361,16 +361,16 @@ minishell
   이러한 루틴은 termcap 라이브러리를 사용하는 프로그램들을 변환하기 위한 도우미로 포함되어 있습니다. 이들의 매개변수는 동일하며 루틴은 terminfo 데이터베이스를 사용하여 에뮬레이션됩니다.
   따라서 이들은 컴파일된 terminfo 항목에 대한 능력을 조회하는 데만 사용할 수 있습니다.
 
-  * tgetent 루틴은 name에 대한 항목을 로드합니다. 성공하면 1을 반환하고, 해당 항목이 없으면 0을 반환하며, terminfo 데이터베이스를 찾을 수 없으면 -1을 반환합니다.  
+  * >tgetent 루틴은 name에 대한 항목을 로드합니다. 성공하면 1을 반환하고, 해당 항목이 없으면 0을 반환하며, terminfo 데이터베이스를 찾을 수 없으면 -1을 반환합니다.  
       이러한 에뮬레이션에서는 버퍼 포인터 bp를 무시합니다.  
-  * tgetflag 루틴은 id에 대한 부울 항목을 가져오거나 해당 항목이 사용 불가능한 경우 0을 반환합니다.  
-  * tgetnum 루틴은 id에 대한 숫자 항목을 가져오거나 해당 항목이 사용 불가능한 경우 -1을 반환합니다.    
-  * tgetstr 루틴은 id에 대한 문자열 항목을 반환하거나 해당 항목이 사용 불가능한 경우 0을 반환합니다.  
+  * >tgetflag 루틴은 id에 대한 부울 항목을 가져오거나 해당 항목이 사용 불가능한 경우 0을 반환합니다.  
+  * >tgetnum 루틴은 id에 대한 숫자 항목을 가져오거나 해당 항목이 사용 불가능한 경우 -1을 반환합니다.    
+  * >tgetstr 루틴은 id에 대한 문자열 항목을 반환하거나 해당 항목이 사용 불가능한 경우 0을 반환합니다.  
      반환된 문자열을 출력하기 위해 tputs를 사용하십시오.  
      반환 값은 또한 area가 가리키는 버퍼에 복사되며, 이 값 뒤에 있는 널(null)을 가리키도록 area 값이 업데이트됩니다.  
-  * tgetflag, tgetnum 및 tgetstr의 id 매개변수의 처음 두 문자만 조회됩니다.  
-  * tgoto 루틴은 주어진 능력(capability)에 매개변수를 즉시 적용합니다. 이 루틴의 출력은 tputs에 전달되어야 합니다.  
-  * tputs 루틴에 대한 설명은 curs_terminfo(3X) 매뉴얼 페이지에 있습니다. 이는 termcap 또는 terminfo 이름으로 능력을 검색할 수 있습니다.  
+  * >tgetflag, tgetnum 및 tgetstr의 id 매개변수의 처음 두 문자만 조회됩니다.  
+  * >tgoto 루틴은 주어진 능력(capability)에 매개변수를 즉시 적용합니다. 이 루틴의 출력은 tputs에 전달되어야 합니다.  
+  * >tputs 루틴에 대한 설명은 curs_terminfo(3X) 매뉴얼 페이지에 있습니다. 이는 termcap 또는 terminfo 이름으로 능력을 검색할 수 있습니다.  
 
   >   변수 PC, UP 및 BC는 tgetent에 의해 pad_char, cursor_up 및 backspace_if_not_bs에 대한 terminfo 항목 데이터로 설정됩니다.  
   >   UP는 ncurses에서 사용되지 않습니다. PC는 tdelay_output 함수에서 사용됩니다. BC는 tgoto 에뮬레이션에서 사용됩니다.  
