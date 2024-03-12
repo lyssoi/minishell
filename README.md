@@ -125,9 +125,9 @@ minishell
   ```
     
   함수 설명  get file status
-  >fstat fildes : 연 파일의 파일 디스크립터
+  >fstat fildes : 연 파일의 파일 디스크립터  
   buf : fildes가 가리키는 파일의 상태 및 정보를 저장할 구조체  
-  lstat, stat path : stat을 얻고자 하는 파일의 경로
+  lstat, stat path : stat을 얻고자 하는 파일의 경로  
   buf : path에 있는 파일의 상태 및 정보를 저장할 구조체  
   >>차이점 : stat은 지정한 파일이 심볼릭 링크면 링크를 따라가서 원본 파일의 정보를 전달하지만,  
            lstat은 지정한 파일이 심볼릭 링크면 링크 파일 자체의 정보를 전달.  
