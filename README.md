@@ -7,16 +7,24 @@ minishell
 
 * readline
   
-  ```
+  ```c
   char *readline(const char *);
   ```
   readline은 입력받은 문자열을 저장하고 그 메모리주소를 반환한다.
 
 * rl_clear_history
+  ```c
+  #include <readline/readline.h>
+  void rl_clear_history(void);
+  ```
+  함수 설명 현재 history를 지운다.
+  반환값 없다.
 * rl_on_new_line
 * rl_replace_line
 * rl_redisplay
 * add_history
+  
+  [사용 예시](https://wtg-study.tistory.com/103)
 * printf
 * malloc
 * free
