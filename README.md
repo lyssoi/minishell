@@ -194,6 +194,20 @@ minishell
   >  성공 → 0, 실패 → -1  
   
 * kill
+
+  ```c
+  #include <signal.h>
+  int raise(int sig);
+  ```
+  
+  함수 설명  
+  >  kill() 함수는 쉘에서 프로세스를 죽이는 kill 명령과는 달리 프로세스에 시그널을 전송한다.  
+  >  물론, 프로세스에 SIGKILL을 보내면 쉘 명령의 kill과 같은 역할을 한다.    
+  >  인수: int sig 전송하려는 시그널 번호  
+     
+  반환값  
+  >  성공 -> 0  
+  >  실패 -> !0  
   
 * getcwd
   ```c
