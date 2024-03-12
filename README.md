@@ -10,7 +10,7 @@ minishell
   ```c
   char *readline(const char *);
   ```
-  함수 설명
+  >함수 설명
     입력받은 문자열을 저장하고 그 메모리주소를 반환한다.
 
 * rl_clear_history
