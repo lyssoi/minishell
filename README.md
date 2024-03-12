@@ -114,12 +114,26 @@ minishell
   
 * chdir
   
-* stat
-  
-* lstat
-  
-* fstat
-  
+* stat, lstat, fstat
+  ```c
+  #include <sys/stat.h>
+  #include <unistd.h>
+  int fstat(int fildes, struct stat *buf);
+  int lstat(const char *restrict path, struct stat *restrict buf);
+  int stat(const char *restrict path, struct stat *restrict buf);
+  //struct status : 파일 정보를 저장하는 구조체
+  ```
+    
+  함수 설명  get file status
+  >fstat fildes : 연 파일의 파일 디스크립터
+  buf : fildes가 가리키는 파일의 상태 및 정보를 저장할 구조체  
+  lstat, stat path : stat을 얻고자 하는 파일의 경로
+  buf : path에 있는 파일의 상태 및 정보를 저장할 구조체  
+  >>차이점 : stat은 지정한 파일이 심볼릭 링크면 링크를 따라가서 원본 파일의 정보를 전달하지만,  
+           lstat은 지정한 파일이 심볼릭 링크면 링크 파일 자체의 정보를 전달.
+  반환값  
+  >stat, lstat, fstat 성공 → 0, 실패 → -1 그리고 errno가 설정된다.
+
 * unlink
   
 * execve
