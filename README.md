@@ -45,7 +45,7 @@ minishell
   함수 설명  
   >  rl_line_buffer라는 변수를 사용하는데 rl_line_buffer는 사용자가 입력한 문자열을 별도로 유지한다.  
     rl_line_buffer에 입력받은 내용을 text라는 문자열로 대치한다.
-    
+  >   
   > clear_undo는 내부적으로 유지 중인 undo_list를 초기화할 지의 여부를 결정 짓는 값이다.  
     clear_undo == 0 → 초기화하지 않고, clear_undo == 1 → 초기화한다.
     
@@ -94,9 +94,22 @@ minishell
   
 * waitpid
   
-* wait3
-  
-* wait4
+* wait3, wait4
+  ```c
+  #include <sys/wait.h>
+  #include <sys/resource.h>
+  pid_t wait3(int *stat_loc, int options, struct rusage *rusage);
+  pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage);
+  ```
+  함수 설명
+  >  wait for process termination 자식 프로세스가 종료되는 것을 기다리며, 종료된 프로세스의 상태와 자원 사용량을 알려주는 함수
+    wait3 statloc : 자식 프로세스의 exit code를 가지고 있다.
+    options : 자식 프로세스를 어떻게 기다릴 건지 옵션(waitpid랑 똑같다)
+    rusage : 자식 프로세스의 리소스 사용량에 대한 정보가 담긴다.
+  >>wait4 : wait3이랑 똑같다. pid : waitpid의 인자와 똑같다.
+    
+  반환값
+   > 성공 → 죽은 자식 프로세스의 pid, 실패 → -1
   
 * signal
   
