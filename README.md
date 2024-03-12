@@ -112,6 +112,30 @@ minishell
    > 성공 → 죽은 자식 프로세스의 pid, 실패 → -1  
   
 * signal
+  ```c
+  #include <signal.h>
+  void (*signal(int sig, void (*func)(int)))(int);
+
+  //struct가 있으면 ->
+  typedef void (*sig_t) (int); //반환값이 void형이고, 매개변수가 int형인 함수 포인터의 별명을 sig_t
+  sig_t signal(int sig, sig_t func);
+  ```
+  함수 설명 simplified software signal facilities  
+  >  코어 덤프 : 프로그램이 비정상적으로 종료(segfault..)할 때 프로그램에서 작업하던 메모리 상태를 저장하는 파일을(코어 파일) 만들고 종료한다.  
+    sig : 처리할 시그널 번호 kill함수로 시그널을 전송할 때도 일어날 수 있다.  
+  
+  |번호|시그널|기본처리|발생조건|
+  |:--|:--|:--|:--|
+  |1 |  SIGHUP	|종료	|HangUP, 터미널에서 접속이 끊겼을 때 보내진다.|
+  |2 |  SIGINT	|종료	|키보드로 Ctrl + c|
+  |9 |	SIGKILL	|종료	|강제 종료시|
+  |11|	SIGSEGV	|코어 덤프	|segfault가 생겼을 때|
+  |12|	SIGSYS	|코어 덤프	|system call을 잘못 했을 때|
+  |16|	SIGUSR1	|종료	|사용자 정의 시그널1|
+  |17|	SIGUSR2	|종료	|사용자 정의 시그널2|
+  |23|	SIGSTOP	|중지	|이 시그널을 받으면 SIGCONT 시그널을 받을 때까지 프로세스를 중지|
+  |24|	SIGTSTP	|중지	|키보드로 Ctrl + z|
+  |25|	SIGCONT	|무시	|중지된 프로세스|
   
 * sigaction
   
